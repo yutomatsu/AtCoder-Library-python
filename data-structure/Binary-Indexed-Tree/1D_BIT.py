@@ -5,7 +5,7 @@ class Binary_Indexed_Tree:
         self.depth = n.bit_length()
 
     def add(self, p, x) -> None:
-        """任意の要素ai←ai+xを行う O(logn)"""
+        """0-indexのp番目にxを加算する"""
         assert 0 <= p < self._n
         p += 1
         while p <= self._n:
@@ -18,6 +18,7 @@ class Binary_Indexed_Tree:
         return self._sum(r) - self._sum(l)
     
     def _sum(self, d) -> int:
+        """区間[0,d)で計算"""
         sm = 0
         while d > 0:
             sm += self.data[d-1]
@@ -34,17 +35,3 @@ class Binary_Indexed_Tree:
                 sum_ += self.data[k-1]
                 pos += 1 << i
         return pos, sum_
-
-n = 8
-data = [0, 1, 2, 3, 4, 5, 6, 7]
-BIT = Binary_Indexed_Tree(n)
-for idx, num in enumerate(data):
-    BIT.add(idx, num)
-print(BIT._sum(3))
-print(BIT._sum(5))
-print(BIT.sum(2, 4)) # 5
-print(BIT.sum(6, 7)) # 6
-BIT.add(2, 6) # a[2]+=6
-BIT.add(5, -1)
-print(BIT.sum(0, 3)) # 9
-print(BIT.sum(3, 7)) # 17
