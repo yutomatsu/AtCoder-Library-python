@@ -5,7 +5,7 @@ class Binary_Indexed_Tree:
         self.depth = n.bit_length()
 
     def add(self, p, x) -> None:
-        """任意の要素ai←ai+xを行う O(logn)"""
+        """0-indexのp番目にxを加算"""
         assert 0 <= p < self._n
         p += 1
         while p <= self._n:
