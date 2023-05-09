@@ -1,9 +1,7 @@
-# 参照　https://qiita.com/R_olldIce/items/32cbf5bc3ffb2f84a898#25-%E5%8F%96%E5%BE%97%E3%82%AF%E3%82%A8%E3%83%AA
-
 # fの関数定義例
 # f = lambda a, b: a+b  a*b  a ^ b
 # gcdの時はUnitXは0で
-# indexも欲しかったら以下みたいに
+# indexも欲しかったら以下
 def op(a,b):
     if a[0]<b[0]:
         return a
@@ -12,8 +10,6 @@ def op(a,b):
     else:
         return (a[0],min(a[1],b[1]))
 
-# 区間取得を行うときに最大をとる場合、以下参考
-# https://yukicoder.me/submissions/766644
 class SegmentTree():
     """UnitXは単位元、fは区間で行いたい操作、initは自然数あるいは配列"""
     def __init__(self, init, unitX, f):
@@ -66,8 +62,7 @@ class SegmentTree():
             l >>= 1
             r >>= 1
         return self.f(al, ar)
-    
-    # Find r s.t. calc(l, ..., r-1) = True and calc(l, ..., r) = False
+
     def max_right(self, l, z):
         if l >= self.n: return self.n
         l += self.n
@@ -86,8 +81,7 @@ class SegmentTree():
             l += 1
             if l & -l == l: break
         return self.n
-    
-    # Find l s.t. calc(l, ..., r-1) = True and calc(l-1, ..., r-1) = False
+
     def min_left(self, r, z):
         if r <= 0: return 0
         r += self.n
@@ -106,22 +100,3 @@ class SegmentTree():
             s = self.f(self.X[r], s)
             if r & -r == r: break
         return 0
-    
-    def debug(self):
-        print("debug")
-        print([self.getvalue(i) for i in range(min(self.n, 20))])
-    
-N, Q = map(int, input().split())
-A = [int(a) for a in input().split()]
-st = SegmentTree([(n, i) for i, n in enumerate(A)], 0, max)
-for _ in range(Q):
-    t, a, b = map(int, input().split())
-    if t == 1:
-        st.update(a-1, b)
-    elif t == 2:
-        print(st.getrange(a-1, b))
-    else:
-        z = lambda x: x < b
-        print(min(N, st.max_right(a-1, z)) + 1)
-
-
