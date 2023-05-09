@@ -1,9 +1,5 @@
 class LazySegmentTree:
     """
-    Reference
-    これがいい
-    https://betrue12.hateblo.jp/entry/2020/09/23/005940
-    
     https://github.com/atcoder/ac-library/blob/master/atcoder/lazysegtree.hpp
     https://github.com/atcoder/ac-library/blob/master/document_ja/lazysegtree.md
     """
@@ -176,50 +172,3 @@ class LazySegmentTree:
             sm = self.op(self.d[r], sm)
             if (r & -r) == r:
                 return 0
-
-ID = 10**13
-def op(x,y):
-    """何を作用させるか"""
-    return max(x,y)
-
-def mapping(f,x):
-    """f(a)みたいな感じ"""
-    # 加算
-    return f+x
-    # 更新
-    return x if f==ID else f
-
-def composition(f,g):
-    """f(g())"""
-    return f+g
-
-
-from sys import stdin
-input = stdin.readline
-inf = 1 << 60
-
-n, b, q = map(int, input().split())
-a = list(map(int, input().split()))
-
-data = [0] * n
-data[0] = a[0] - b
-for i in range(1, n):
-    data[i] = data[i - 1] + a[i] - b
-
-lst = LazySegmentTree(n, max, -inf, lambda f, x: f + x, lambda f, g: f + g, 0)
-lst.build(data)
-
-s = sum(a)
-ans = [0.0] * q
-for i in range(q):
-    c, x = map(int, input().split())
-    c -= 1
-    lst.apply(c, n, x - a[c])
-    s += x - a[c]
-    a[c] = x
-    if 0 <= lst.all_prod():
-        j = lst.max_right(0, lambda x: x < 0)
-        ans[i] = b + lst.get(j) / (j + 1)
-    else:
-        ans[i] = s / n
-print(*ans, sep='\n')
