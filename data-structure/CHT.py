@@ -32,26 +32,3 @@ class Convex_Hull_Trick:
         while len(self.deq) >= 2 and self.f(self.deq[0], x) >= self.f(self.deq[1], x):
             self.deq.popleft()
         return self.f(self.deq[0], x)
-
-cht = Convex_Hull_Trick()
-cht.add_line(1,1)
-cht.add_line(1,3)
-cht.add_line(1,5)
-print(cht.get(2))
-"""
-N, M = map(int, input().split())
-B = list(map(int, input().split()))
-C = list(map(int, input().split()))
-B.sort(reverse=True)
-D = []
-for id,c in enumerate(C):
-    D.append([id,c])
-D.sort(key = lambda x:x[1])
-CHT = Convex_Hull_Trick()
-for id, b in enumerate(B):
-    CHT.add_line(-(id+1),-(id+1)*b)
-res = [0]*M
-for id, c in D:
-    res[id] = -CHT.get(c)
-print(*res)
-"""
