@@ -1,1 +1,1 @@
-library
+競プロ用library
