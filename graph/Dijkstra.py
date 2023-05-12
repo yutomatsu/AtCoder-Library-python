@@ -5,9 +5,9 @@ INF = float('inf')
 
 def dijkstra(s, n):
     dist = [INF] * n
-    hq = [(0, s)] # (distance, node)
+    hq = [(0, s)]
     dist[s] = 0
-    seen = [False] * n # ノードが確定済みかどうか
+    seen = [False] * n
     # 経路復元用
     prev = [-1]*n
     while hq:
