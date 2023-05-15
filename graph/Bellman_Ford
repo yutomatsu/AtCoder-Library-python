@@ -1,0 +1,25 @@
+def bellmanford(s):
+    """sからの最短距離と負閉路の検出"""
+    dist = [float('inf')]*N
+    dist[s] = 0
+    for i in range(N):
+        f = False
+        for v in range(N):
+            for nex,cost in G[v]:
+                if dist[v]+cost<dist[nex]:
+                    dist[nex] = dist[v]+cost
+                    f = True
+                    if i==N-1:
+                        # 負閉路検出
+                        dist[nex] = -float('inf')
+                        stack = [nex]
+                        while stack:
+                            v_roop = stack.pop()
+                            for nex_roop,_ in G[v_roop]:
+                                if dist[nex_roop]!=-float('inf'):
+                                    dist[nex_roop] = -float('inf')
+                                    stack.append(nex_roop)
+                        return dist
+                            
+        if not f:
+            return dist
