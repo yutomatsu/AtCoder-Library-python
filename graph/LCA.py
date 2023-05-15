@@ -1,8 +1,3 @@
-import sys
-sys.setrecursionlimit(10**8)
-# import pypyjit
-# pypyjit.set_param("max_unroll_recursion=-1")
-
 class LCA:
     """
     前処理O(nlogn)、クエリO(logn)
@@ -29,13 +24,16 @@ class LCA:
             d <<= 1
             prev = nex
 
-    def dfs(self,v,p):
-        for nex, cost in self.G[v]:
-            if nex==p:continue
-            self.depth[nex] = self.depth[v]+1
-            self.dist[nex] = self.dist[v]+cost
-            self.ancestors[0][nex] = v
-            self.dfs(nex,v)
+    def dfs(self,root = 0):
+        stack = [root]
+        while stack:
+            v = stack.pop()
+            for nex,cost in self.G[v]:
+                if self.ancestors[0][v]==nex:continue
+                self.depth[nex] = self.depth[v]+1
+                self.dist[nex] = self.dist[v]+cost
+                self.ancestors[0][nex] = v
+                stack.append(nex)
     
     def lca_query(self, u, v):
         """u,vの最小共通祖先を求める"""
