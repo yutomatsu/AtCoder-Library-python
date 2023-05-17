@@ -42,18 +42,3 @@ def divisor(x,spf):
                 div.append(div[i]*nn)
                 nn *= key
     return div
-
-def mobius(x,spf):
-    """
-    メビウス関数の結果返す。
-    μ(1) = 1
-    ある素数で2回以上割り切れる場合はμ(x)=0
-    全ての素因数が1回までしか出現しない
-    μ(x)=(-1)^K Kは素因数の数
-    """
-
-spf = smallest_prime_factors(10000)
-print(divisor(120,spf))
-A = [10, 4, 20]
-for i in range(3):
-    print(fac2(A[i], spf))
