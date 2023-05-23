@@ -50,4 +50,4 @@ class RangeAddSum:
     
     def sum(self,l,r):
         """return sum[l,r)"""
-        return self.bit2._sum(r)*(r-1)+self.bit1._sum(r)-self.bit2.sum(l)*(l-1)-self.bit1._sum(l)
+        return self.bit2._sum(r)*(r-1)+self.bit1._sum(r)-self.bit2._sum(l)*(l-1)-self.bit1._sum(l)
