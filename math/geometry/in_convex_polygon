@@ -1,0 +1,36 @@
+def cross(p1,p2,p3):
+    # 外積を計算
+    return (p1[0]-p2[0])*(p3[1]-p2[1])-(p3[0]-p2[0])*(p1[1]-p2[1])
+
+def in__convex_polygon(p,polygon):
+    """
+    p:内外判定を行う点(O(logN))
+    polygon:凸多角形の点群(反時計回り)
+    """
+    le = len(polygon)
+    p0 = polygon[0]
+    l,r = 1,le
+    while r-l>1:
+        mid = (r+l)//2
+        if cross(p,p0,polygon[mid])<=0:
+            l = mid
+        else:
+            r = mid
+    l -= (l==le-1)
+    p1,p2 = polygon[l],polygon[l+1]
+    f_0 = cross(p1,p0,p2)
+    f_1 = cross(p,p0,p2)
+    f_2 = cross(p1,p0,p)
+    if f_0<0:
+        f_1 *= -1 
+        f_2 *= -1 
+    if f_1>=0 and f_2>=0 and f_1+f_2<=f_0:
+        if cross(p1,p,p2)==0 or cross(p0,p,polygon[1])==0 or cross(p0,p,polygon[-1])==0:
+            # 線上
+            return 1
+        else:
+            # 内部
+            return 2
+    else:
+        # 外部
+        return 0
