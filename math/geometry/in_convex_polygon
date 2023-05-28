@@ -5,7 +5,7 @@ def cross(p1,p2,p3):
 def in_convex_polygon(p,polygon):
     """
     p:内外判定を行う点(O(logN))
-    polygon:凸多角形の点群(反時計回り)
+    polygon:凸多角形の点群
     """
     le = len(polygon)
     p0 = polygon[0]
