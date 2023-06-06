@@ -1,7 +1,7 @@
 class RollingHash:
     def __init__(self, S) -> None:
         """文字列->整数変換とhash生成"""
-        self.mod = 1<<61-1
+        self.mod = 1<<61-1 # デカすぎると遅い、適宜変更
         self.base = 10**9+7
         S = [ord(i)-96 for i in S]
         self.pow = [1]*(len(S)+1)
